@@ -1,52 +1,42 @@
-var cat ,garden;
-var background1;
+var fixedRect, movingRect;
+var gameObject1,gameObject2,gameObject3,gameObject4;
 
-function preload() {
-   
-    cat = loadImage("cat1.png");   
-    catRunning = loadAnimation("cat2.png","cat3.png");
-    catSad = loadImage("cat4.png");
-    garden = loadImage("garden.png");
-    mouseStanding = loadImage("mouse1.png");
-    mouseTeasing = loadAnimation("mouse3.png");
-}
+function setup() {
+  createCanvas(1200,800);
+  fixedRect = createSprite(600, 400, 50, 80);
+  fixedRect.shapeColor = "green";
+  fixedRect.debug = true;
+  movingRect = createSprite(400,200,80,30);
+  movingRect.shapeColor = "green";
+  movingRect.debug = true;
 
-function setup(){
-    createCanvas(1000,800);
-  
-   background1 = createSprite(500,400,10,50);
-   background1.addImage(garden);
- 
-  cat1 = createSprite(700,660)
-  cat1.addImage(cat);
-  cat1.scale = 0.1;
+  gameObject1=createSprite(100,100,50,50);
+  gameObject1.shapeColor="green";
 
-  mouse1 = createSprite(100,660)
-  mouse1.addImage(mouseStanding);
-  mouse1.scale = 0.1;
+  gameObject2=createSprite(200,100,50,50);
+  gameObject2.shapeColor="green";
+
+  gameObject3=createSprite(300,100,50,50);
+  gameObject3.shapeColor="green";
+
+  gameObject4=createSprite(400,100,50,50);
+  gameObject4.shapeColor="green";
 
 }
+
 function draw() {
-
-    background(255);
-   
-
-if(keyDown("LEFT_ARROW")){
-
-cat1.velocityX = -5;
-cat1.addAnimation("cat",catRunning);
-cat1.changeAnimation("cat");
-
+  background(0,0,0);  
+  movingRect.x = World.mouseX;
+  movingRect.y = World.mouseY;
+if(isTouching(movingRect,gameObject4)){
+  movingRect.shapeColor = "red";
+  gameObject4.shapeColor = "red";
+}
+else{
+  movingRect.shapeColor = "green";
+  gameObject4.shapeColor = "green";
 }
 
-if(cat1.isTouching(mouse1)){
-
-    cat1.velocityX = 0;
-    mouse1.addAnimation("mouse",mouseTeasing);
-    mouse1.changeAnimation("mouse");
-    cat1.addAnimation("catworry",catSad);
-    cat1.changeAnimation("catworry");
-}
-
-    drawSprites();
+ 
+  drawSprites();
 }
